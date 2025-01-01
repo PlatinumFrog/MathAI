@@ -6,6 +6,8 @@
 #include <string>
 #include <random>
 
+#include "MathText.h"
+
 class Transformer {
 	std::vector<uint8_t> tokens;
 	std::vector<uint8_t> precedence;

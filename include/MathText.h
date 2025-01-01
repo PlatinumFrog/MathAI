@@ -4,12 +4,9 @@
 #include <string>
 #include <cmath>
 
-struct DataPair { std::string input, output; };
-
 class MathTextGenerator {
 	// Numbers: 0-9, Lowercase: 10-35, Uppercase: 36-61, Isolators: 62-69, Separators: 70-76, Operators: 77-81, Equais: 82
 	const char* alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ()[]{}<>.,;_|\'\"+-/*^=";
-
 	// Generate a random alphanumeric character. flags & 1 for lowercase, flags & 2 for uppercase, flags & 4 for numbers, can have multiple flags
 	const char randomAlphanumeric(const uint8_t flags) {
 		switch (flags) {
@@ -134,4 +131,23 @@ public:
 			return output;
 		}
 	}
+};
+
+struct DataPair { 
+
+	// Input and output strings
+	std::string input, output;
+
+	// Information about the characters in the input and output strings
+	// Types: Constant, Scalar, Vector, Matrix, Operator, Function, Parameter, Separator, Isolator
+	std::vector<uint8_t> inputTypes, outputTypes;
+
+	// Expression level or priority of each expression. Opening isolator increases and closing isolator decreases. Should be zero at either end of the expression.
+	std::vector<uint8_t> inputLevels, outputLevels;
+
+	// Priority of each token, based on operator precedence and order of appearence in the expression.
+	std::vector<uint8_t> inputPriority, outputPriority;
+
+	// Each tuple of (character, type, level, priority) is converted into a token of 4 floats.
+	std::vector<float> inputTokens, outputTokens;
 };
